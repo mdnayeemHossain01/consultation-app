@@ -25,7 +25,7 @@ export default function EmergencyHeader() {
 
           {/* Call Button */}
           <a 
-            href="tel:9170000000" 
+            href="tel:9296325878" 
             className="flex items-center gap-2 bg-white text-red-600 px-3 py-1.5 rounded-full font-bold text-xs hover:bg-gray-100 transition-colors"
           >
             <Phone className="h-4 w-4" />
