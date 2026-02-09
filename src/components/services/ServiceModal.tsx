@@ -1,7 +1,6 @@
 import { X, Clock, DollarSign, FileCheck, CalendarCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// This defines what data we expect to receive
 interface ServiceModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -13,77 +12,73 @@ export default function ServiceModal({ isOpen, onClose, service }: ServiceModalP
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-        
-        {/* The Card Animation */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden relative"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden relative border border-gray-100"
         >
-          
-          {/* Header Color Bar */}
-          <div className={`h-24 ${service.color.split(' ')[0]} flex items-center justify-center`}>
-            <service.icon className={`w-12 h-12 ${service.color.split(' ')[1]}`} />
-            <button 
-              onClick={onClose}
-              className="absolute top-4 right-4 bg-white/90 p-2 rounded-full hover:bg-white transition-colors"
-            >
-              <X className="w-5 h-5 text-gray-600" />
+          {/* Header */}
+          <div className={`h-28 ${service.color.split(' ')[0]} flex flex-col items-center justify-center relative`}>
+            <service.icon className={`w-10 h-10 ${service.color.split(' ')[1]}`} />
+            <h2 className="text-xl font-bold mt-2 text-gray-900">{service.title}</h2>
+            <button onClick={onClose} className="absolute top-4 right-4 bg-white/50 hover:bg-white p-2 rounded-full transition-colors">
+              <X className="w-5 h-5 text-gray-700" />
             </button>
           </div>
 
-          {/* Content Body */}
-          <div className="p-6 space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900">{service.title}</h2>
-              <p className="text-gray-500">{service.description}</p>
-            </div>
-
-            {/* Details Grid */}
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-gray-50 p-3 rounded-lg">
-                <div className="flex items-center gap-2 text-gray-900 font-semibold mb-1">
-                  <Clock className="w-4 h-4 text-blue-600" /> Duration
+          <div className="p-8 space-y-6">
+            {/* Quick Stats */}
+            <div className="flex gap-4">
+              <div className="flex-1 bg-blue-50/50 p-4 rounded-2xl border border-blue-100">
+                <div className="flex items-center gap-2 text-blue-700 font-bold text-xs uppercase mb-1">
+                  <Clock className="w-4 h-4" /> Duration
                 </div>
-                {service.duration}
+                <p className="text-gray-900 font-medium">{service.duration}</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded-lg">
-                <div className="flex items-center gap-2 text-gray-900 font-semibold mb-1">
-                  <DollarSign className="w-4 h-4 text-green-600" /> Fee
+              <div className="flex-1 bg-green-50/50 p-4 rounded-2xl border border-green-100">
+                <div className="flex items-center gap-2 text-green-700 font-bold text-xs uppercase mb-1">
+                  <DollarSign className="w-4 h-4" /> Estimated Fee
                 </div>
-                {service.fee}
+                <p className="text-gray-900 font-medium">{service.fee}</p>
               </div>
             </div>
 
-            {/* What to Bring */}
+            {/* Documents Section */}
             <div>
-              <h3 className="flex items-center gap-2 font-bold text-gray-900 mb-2">
-                <FileCheck className="w-4 h-4" /> Documents to Bring:
+              <h3 className="flex items-center gap-2 font-bold text-gray-900 mb-3">
+                <FileCheck className="w-5 h-5 text-blue-600" /> Required Documents:
               </h3>
-              <ul className="list-disc list-inside text-sm text-gray-600 space-y-1 ml-1">
-                {service.documents.map((doc: string, i: number) => (
-                  <li key={i}>{doc}</li>
-                ))}
-              </ul>
+              <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
+                <ul className="grid grid-cols-1 gap-2">
+                  {service.documents.map((doc: string, i: number) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                      <span className="text-blue-500 mt-1">•</span> {doc}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
-            {/* The Glowing Booking Button */}
+            {/* Glowing Booking Button */}
             <div className="pt-2">
               <a 
-                href="https://calendly.com" 
+                href="https://calendly.com/mollahnayeem01/30min" 
                 target="_blank"
-                className="group flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02] transition-all"
+                rel="noopener noreferrer"
+                className="relative group flex items-center justify-center gap-3 w-full bg-blue-600 text-white font-bold py-5 rounded-2xl transition-all hover:bg-blue-700 active:scale-95 overflow-hidden"
               >
-                <CalendarCheck className="w-5 h-5 group-hover:animate-pulse" />
-                Book Appointment Now
+                {/* The "Light Effect" glow */}
+                <div className="absolute inset-0 w-1/2 h-full bg-white/20 skew-x-[-25deg] -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                
+                <CalendarCheck className="w-6 h-6" />
+                <span className="text-lg">Book Appointment</span>
               </a>
-              <p className="text-xs text-center text-gray-400 mt-2">
-                Securely scheduled via Google Calendar
+              <p className="text-center text-xs text-gray-400 mt-4 italic">
+                Office Hours: Mon-Fri (9:00 AM - 6:00 PM)
               </p>
             </div>
-
           </div>
         </motion.div>
       </div>
