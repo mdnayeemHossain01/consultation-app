@@ -14,9 +14,11 @@ export default function EmergencyHeader() {
 
         {/* Right Side: Buttons */}
         <div className="flex gap-3">
-          {/* WhatsApp Button */}
+          {/* WhatsApp Button - NOW LIVE with your number */}
           <a 
-            href="https://wa.me/19170000000" 
+            href="https://wa.me/19296325878" 
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 bg-green-500 text-white px-3 py-1.5 rounded-full font-bold text-xs hover:bg-green-600 transition-colors"
           >
             <MessageCircle className="h-4 w-4" />
